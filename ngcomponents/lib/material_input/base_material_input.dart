@@ -156,7 +156,7 @@ class BaseMaterialInput extends FocusableMixin
   ///
   /// Character count always is displayed when the value is non-null.
   @Input()
-  int maxCount = 0;
+  int? maxCount;
 
   ValidityCheck _checkValid = (v) => '';
   ValidityCheck get checkValid => _checkValid;
@@ -268,7 +268,7 @@ class BaseMaterialInput extends FocusableMixin
       _localValidationMessage = requiredErrorMsg;
       return {materialInputErrorKey: _localValidationMessage};
     }
-    if (inputTextLength > maxCount) {
+    if (maxCount != null && inputTextLength > maxCount!) {
       _localValidationMessage = _errorMsg;
       return {materialInputErrorKey: _localValidationMessage};
     }
