@@ -41,7 +41,7 @@ class StringSelectionOptions<T> extends SelectionOptions<T>
   static const int UNLIMITED = 9007199254740992;
 
   /// The last query passed to [filter].
-  String _currentQuery = '';
+  String? _currentQuery;
 
   /// The current limit for the filter being applied.
   int _currentLimit = -1;
@@ -126,7 +126,7 @@ class StringSelectionOptions<T> extends SelectionOptions<T>
   void refilter() {
     List<OptionGroup<T>> filtered = [];
     int count = 0;
-    String? filterQuery = _sanitizeString(_currentQuery);
+    String? filterQuery = _sanitizeString(_currentQuery ?? '');
     for (var group in _optionGroups) {
       if (count >= currentLimit!) break;
       var filteredGroup =
