@@ -11,7 +11,6 @@ import 'package:ngcomponents/model/ui/has_factory.dart';
 abstract class SelectionContainer<T>
     implements
         HasRenderer<T>,
-        //HasComponentRenderer<RendersValue, Object>,
         HasFactoryRenderer<RendersValue, T> {
   /// The selection model this container represents.
   SelectionModel<T> selection = SelectionModel.empty();
@@ -23,13 +22,6 @@ abstract class SelectionContainer<T>
   /// @override
   @override
   ItemRenderer<T>? itemRenderer;
-
-  /// Specifies the componentRenderer to use to determine the component for
-  /// rendering an item.
-  //@override
-  //@Deprecated(
-  //    'Use factoryRenderer instead it provides more tree-shakeable code')
-  //ComponentRenderer? componentRenderer;
 
   /// Specifies the factoryRenderer to use to determine the factory for
   /// rendering an item.

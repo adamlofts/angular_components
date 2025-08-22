@@ -16,9 +16,6 @@ import 'package:ngcomponents/model/ui/highlighted_text_model.dart';
 /// Assistant to support highlighting in a SelectionContainer.
 abstract class HighlightAssistantMixin<T>
     implements SelectionContainer<T>, HighlightProvider {
-  @Deprecated('Use highlightFactoryRenderer instead as it allows tree-shaking.')
-  final ComponentRenderer highlightComponentRenderer =
-      (_) => HighlightedValueComponent;
   final FactoryRenderer highlightFactoryRenderer =
       (_) => null; //highlight.HighlightedValueComponentNgFactory;
 
