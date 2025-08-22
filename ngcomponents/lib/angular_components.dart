@@ -18,8 +18,6 @@ import 'focus/focus_list.dart';
 import 'focus/focus_trap.dart';
 import 'focus/keyboard_only_focus_indicator.dart';
 import 'glyph/glyph.dart';
-import 'highlighted_text/highlighted_text.dart';
-import 'highlighted_text/highlighted_value.dart';
 import 'laminate/components/modal/modal.dart';
 import 'material_button/material_button.dart';
 import 'material_button/material_fab.dart';
@@ -104,8 +102,6 @@ export 'focus/focus_trap.dart';
 export 'focus/keyboard_only_focus_indicator.dart';
 export 'forms/error_renderer.dart';
 export 'glyph/glyph.dart';
-export 'highlighted_text/highlighted_text.dart';
-export 'highlighted_text/highlighted_value.dart';
 export 'laminate/components/modal/modal.dart';
 export 'laminate/enums/alignment.dart';
 export 'laminate/overlay/module.dart';
@@ -194,7 +190,6 @@ export 'material_yes_no_buttons/material_yes_no_buttons.dart';
 export 'mixins/button_wrapper.dart';
 export 'mixins/focusable_mixin.dart';
 export 'mixins/has_tab_index.dart';
-export 'mixins/highlight_assistant_mixin.dart';
 export 'mixins/material_dropdown_base.dart';
 export 'mixins/track_layout_changes.dart';
 export 'model/date/date.dart';
@@ -240,8 +235,6 @@ const List<dynamic> materialDirectives = [
   FocusableDirective,
   FocusTrapComponent,
   GlyphComponent,
-  HighlightedTextComponent,
-  HighlightedValueComponent,
   KeyboardOnlyFocusIndicatorDirective,
   LowerBoundValidator,
   MaterialAutoSuggestInputComponent,

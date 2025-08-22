@@ -11,7 +11,6 @@ import 'package:ngcomponents/content/deferred_content.dart';
 import 'package:ngcomponents/focus/focus.dart';
 import 'package:ngcomponents/focus/focus_activable_item.dart';
 import 'package:ngcomponents/focus/focus_trap.dart';
-import 'package:ngcomponents/highlighted_text/highlighted_text.dart';
 import 'package:ngcomponents/laminate/enums/alignment.dart';
 import 'package:ngcomponents/material_icon/material_icon.dart';
 import 'package:ngcomponents/material_list/material_list.dart';
@@ -29,7 +28,6 @@ import 'package:ngcomponents/model/menu/menu.dart';
 import 'package:ngcomponents/model/menu/selectable_menu.dart';
 import 'package:ngcomponents/model/selection/select.dart';
 import 'package:ngcomponents/model/selection/selection_model.dart';
-import 'package:ngcomponents/model/ui/highlighted_text_model.dart';
 import 'package:ngcomponents/utils/disposer/disposer.dart';
 import 'package:ngcomponents/utils/id_generator/id_generator.dart';
 import 'package:quiver/core.dart' as qc show Optional;
@@ -45,7 +43,6 @@ import 'package:quiver/core.dart' as qc show Optional;
     FocusActivableItemDirective,
     FocusableDirective,
     FocusTrapComponent,
-    HighlightedTextComponent,
     MaterialIconComponent,
     MaterialListComponent,
     MaterialMenuComponent,
@@ -54,7 +51,6 @@ import 'package:quiver/core.dart' as qc show Optional;
     MenuItemGroupsComponent,
     MaterialTooltipDirective,
     MaterialSelectItemComponent,
-    HighlightedTextComponent,
     NgClass,
     NgFor,
     NgIf,
@@ -190,19 +186,6 @@ class MenuItemGroupsComponent
   Stream<MenuItem> get selected => _selected.stream;
   final _selected = StreamController<MenuItem>.broadcast();
 
-  /// Highlighter to use, need to be to be provided if [highlight] is used.
-  @Input()
-  TextHighlighter? highlighter;
-
-  /// Part of the string to highlight.
-  @Input()
-  set highlight(String value) {
-    _highlight = value;
-    _highlightCache = {};
-  }
-
-  String _highlight = '';
-
   /// CSS classes to append onto the sub-menu popups.
   ///
   /// These CSS classes will be copied into the sub-menu popup overlays.
@@ -211,10 +194,6 @@ class MenuItemGroupsComponent
   /// sub-menus this component will open.
   @Input()
   String popupClass = '';
-
-  bool get hasHighlight => _highlight.isNotEmpty;
-
-  var _highlightCache = <String, List<HighlightedTextSegment>>{};
 
   factory MenuItemGroupsComponent(
           MenuRoot menuRoot,
@@ -228,16 +207,6 @@ class MenuItemGroupsComponent
   MenuItemGroupsComponent._(this._dropdownHandle, this._menuRoot,
       this._changeDetector, this._idGenerator) {
     this._subMenuOpener = DelayedAction(_menuDelay, _openSubMenuOnHover);
-  }
-
-  /// Returns list of highlighted segments for a given input, using provided
-  /// highlighter.
-  List<HighlightedTextSegment> highlighted(String input) {
-    if (_highlightCache.containsKey(input)) {
-      return _highlightCache[input] ?? [];
-    }
-    return _highlightCache[input] =
-        highlighter?.highlight(input, [_highlight]) ?? [];
   }
 
   @HostListener('mouseover')

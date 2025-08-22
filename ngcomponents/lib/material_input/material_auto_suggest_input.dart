@@ -24,7 +24,6 @@ import 'package:ngcomponents/material_select/material_select_base.dart';
 import 'package:ngcomponents/material_select/material_select_dropdown_item.dart';
 import 'package:ngcomponents/material_spinner/material_spinner.dart';
 import 'package:ngcomponents/material_tooltip/material_tooltip.dart';
-import 'package:ngcomponents/mixins/highlight_assistant_mixin.dart';
 import 'package:ngcomponents/mixins/material_dropdown_base.dart';
 import 'package:ngcomponents/mixins/selection_input_adapter.dart';
 import 'package:ngcomponents/model/a11y/active_item.dart';
@@ -36,7 +35,6 @@ import 'package:ngcomponents/model/selection/selection_model.dart';
 import 'package:ngcomponents/model/selection/selection_options.dart';
 import 'package:ngcomponents/model/selection/string_selection_options.dart';
 import 'package:ngcomponents/model/ui/has_factory.dart';
-import 'package:ngcomponents/model/ui/highlight_provider.dart';
 import 'package:ngcomponents/model/ui/template_support.dart';
 import 'package:ngcomponents/stop_propagation/stop_propagation.dart';
 import 'package:ngcomponents/utils/angular/properties/properties.dart';
@@ -58,7 +56,6 @@ typedef InputChangeCallback = dynamic Function(Object inputText,
     ExistingProvider(HasDisabled, MaterialAutoSuggestInputComponent),
     ExistingProvider(HasRenderer, MaterialAutoSuggestInputComponent),
     ExistingProvider(SelectionContainer, MaterialAutoSuggestInputComponent),
-    ExistingProvider(HighlightProvider, MaterialAutoSuggestInputComponent),
     ExistingProvider(DropdownHandle, MaterialAutoSuggestInputComponent),
     //ExistingProvider(HasComponentRenderer, MaterialAutoSuggestInputComponent),
     ExistingProvider(HasFactoryRenderer, MaterialAutoSuggestInputComponent),
@@ -100,8 +97,7 @@ class MaterialAutoSuggestInputComponent<T> extends MaterialSelectBase<T>
     with
         SelectionInputAdapter<T>,
         MaterialInputWrapper,
-        KeyboardHandlerMixin,
-        HighlightAssistantMixin<T>
+        KeyboardHandlerMixin
     implements
         AfterChanges,
         ControlValueAccessor<Object>,
@@ -109,7 +105,6 @@ class MaterialAutoSuggestInputComponent<T> extends MaterialSelectBase<T>
         OnInit,
         OnDestroy,
         HasRenderer<T>,
-        //HasComponentRenderer<RendersValue, Object>,
         HasFactoryRenderer<RendersValue, T>,
         DropdownHandle,
         PopupSizeProvider {
@@ -507,25 +502,6 @@ class MaterialAutoSuggestInputComponent<T> extends MaterialSelectBase<T>
 
   /// Whether an option is hidden.
   bool isOptionHidden(T item) => Selectable.isHiddenIn(options, item, false);
-
-  /// Whether to highlight options.
-  /// Default value is `true`.
-  @Input()
-  bool highlightOptions = true;
-
-  //@override
-  //ComponentRenderer? get componentRenderer => highlightOptions &&
-  //        super.componentRenderer == null &&
-  //        super.factoryRenderer == null
-  //    ? highlightComponentRenderer
-  //    : super.componentRenderer;
-
-  @override
-  FactoryRenderer<RendersValue, T>? get factoryRenderer =>
-      highlightOptions && super.factoryRenderer == null
-          // && super.componentRenderer == null
-          ? highlightFactoryRenderer
-          : super.factoryRenderer;
 
   final _showPopupController = StreamController<bool>.broadcast(sync: true);
 
